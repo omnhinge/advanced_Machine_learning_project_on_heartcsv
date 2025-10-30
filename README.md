@@ -87,5 +87,5 @@ Follow these instructions to run the analysis locally.
 **2. Clone Repository:**
    Open your terminal/command prompt and run:
    ```bash
-   git clone <your-repository-url>
-   cd heart-disease-project # Or your repository name
+   git clone (https://github.com/omnhinge/advanced_Machine_learning_project_on_heartcsv)
+   cd heart_risk
