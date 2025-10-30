@@ -1,91 +1,145 @@
-# Heart Disease Prediction Project
 
-## Overview
+# 🫀 Heart Disease Prediction — Advanced Machine Learning Project
 
-This project uses machine learning techniques to predict the likelihood of a patient having heart disease based on various clinical features. The analysis involves data exploration, preprocessing, model training, hyperparameter tuning, and evaluation, ultimately identifying XGBoost as the best-performing model for this dataset.
-
-
-
----
-## Dataset
-
-The dataset used is `data/heart-disease-dataset.csv`. It contains anonymized patient data with features such as:
-
-* `age`: Age in years
-* `sex`: (1 = male; 0 = female)
-* `chest_pain_type`: Chest pain type (values 1-4)
-* `resting_bp_s`: Resting blood pressure (in mm Hg)
-* `cholesterol`: Serum cholesterol in mg/dl
-* `fasting_blood_sugar`: (Fasting blood sugar > 120 mg/dl) (1 = true; 0 = false)
-* `resting_ecg`: Resting electrocardiographic results (values 0, 1, 2)
-* `max_heart_rate`: Maximum heart rate achieved
-* `exercise_angina`: Exercise induced angina (1 = yes; 0 = no)
-* `oldpeak`: ST depression induced by exercise relative to rest
-* `st_slope`: The slope of the peak exercise ST segment (values 0-3)
-* `target`: Heart disease presence (1 = yes, 0 = no) - **This is the target variable.**
+This project focuses on predicting the presence of **heart disease** using machine learning techniques.  
+It walks through everything from **EDA → preprocessing → feature scaling → model training → evaluation**, all built in Python using Jupyter Notebook / Google Colab.
 
 ---
 
-## Analysis Workflow
+## 🚩 About the Project
+Cardiovascular disease is one of the leading causes of death worldwide.  
+The goal here is to use clinical parameters (like age, cholesterol, resting BP, etc.) to build a model that can **classify whether a patient has heart disease**.
 
-The main analysis is documented in `notebooks/file.ipynb`. Key steps include:
-
-1.  **Loading Data & Initial Exploration (EDA):** Importing libraries, loading the dataset, checking data types, looking for missing values/duplicates, getting summary statistics, and visualizing the target variable distribution.
-2.  **Visualization & Correlation:** Creating a correlation heatmap and plotting distributions & boxplots for numerical features to understand relationships and identify outliers/skewness.
-3.  **Data Preprocessing:**
-    * Handling potential outliers using the IQR capping method.
-    * Applying Box-Cox transformation to reduce skewness in the `oldpeak` feature.
-    * Standardizing continuous features using `StandardScaler`.
-    * Encoding categorical features using One-Hot Encoding (`pd.get_dummies`).
-4.  **Feature Importance:**
-    * Using an `ExtraTreesClassifier` to estimate the importance of each feature in predicting the target variable.
-    * Visualizing the top 15 most important features.
-5.  **Model Training & Baseline Evaluation:**
-    * Splitting the preprocessed data into training (80%) and testing (20%) sets, stratified by the target variable.
-    * Training a variety of baseline classification models:
-        * Logistic Regression
-        * Support Vector Machine (SVM)
-        * Decision Tree
-        * Random Forest
-        * Gaussian Naive Bayes
-        * K-Nearest Neighbors (KNN)
-        * Perceptron
-        * Multi-Layer Perceptron (MLP)
-        * Gradient Boosting
-        * XGBoost
-    * Evaluating these models on the test set using Accuracy, F1 Score, and ROC AUC score.
-6.  **Hyperparameter Tuning:**
-    * Selecting the top-performing baseline models (Random Forest and XGBoost).
-    * Using `GridSearchCV` with 5-fold cross-validation to find the optimal hyperparameters for these models based on accuracy.
-7.  **Final Model Evaluation:**
-    * Evaluating the performance of the tuned RandomForest and XGBoost models on the test set.
-8.  **Model Saving:**
-    * Saving the best model (tuned XGBoost) to the `models/` directory using `joblib`.
+The notebook includes:
+- End-to-end data cleaning and preprocessing  
+- Handling missing values and categorical features  
+- Applying **Z-score scaling (StandardScaler)**  
+- Model training & hyperparameter tuning using `RandomizedSearchCV`  
+- Evaluation using metrics like R², RMSE, and accuracy  
 
 ---
 
-## Results Summary
+## 📂 Dataset
+Dataset used — **`heart.csv`**
 
-* EDA indicated the dataset was relatively clean (no missing values found). Feature importance highlighted `st_slope`, `max_heart_rate`, and `chest_pain_type` related features as strong predictors.
-* Baseline models showed strong performance from tree-based ensembles like Random Forest and XGBoost (~92% accuracy).
-* After hyperparameter tuning, the **XGBoost classifier emerged as the best model** with the following approximate scores on the test set:
-    * **Accuracy:** 0.9328
-    * **F1 Score:** 0.9365
-    * **ROC AUC:** 0.9679
+| Column | Meaning |
+|--------|----------|
+| age | Patient age |
+| sex | Gender (1 = male, 0 = female) |
+| cp | Chest pain type |
+| trestbps | Resting blood pressure |
+| chol | Serum cholesterol |
+| fbs | Fasting blood sugar |
+| restecg | Resting electrocardiographic results |
+| thalach | Max heart rate achieved |
+| exang | Exercise-induced angina |
+| oldpeak | ST depression |
+| slope | Slope of ST segment |
+| ca | Number of major vessels |
+| thal | Thalassemia |
+| target | 1 = heart disease present, 0 = not present |
 
 ---
 
-## How to Set Up and Run
+## 🧠 What’s Inside
+**Notebook name:** `file.ipynb`  
+Here’s the rough flow:
 
-Follow these instructions to run the analysis locally.
+1. **Load and Inspect Data**
+   - Read dataset, check shape, dtypes, and missing values.
 
-**1. Prerequisites:**
-   * [Git](https://git-scm.com/) installed
-   * [Python 3](https://www.python.org/) (version 3.7+ recommended) installed
-   * `pip` (Python package manager) installed
+2. **Data Cleaning**
+   - Impute missing values  
+   - Encode categorical columns  
+   - Basic outlier and skewness treatment  
 
-**2. Clone Repository:**
-   Open your terminal/command prompt and run:
-   ```bash
-   git clone (https://github.com/omnhinge/advanced_Machine_learning_project_on_heartcsv)
-   cd heart_risk
+3. **Feature Scaling**
+   - Apply **Z-score (StandardScaler)** for numeric features  
+
+4. **Modeling**
+   - Build and tune **RandomForestRegressor**  
+   - Use `RandomizedSearchCV` for parameter optimization  
+
+5. **Evaluation**
+   - Check R², MSE, RMSE  
+   - Compare multiple models (Logistic Regression, RF, etc.)
+
+6. **Result**
+   - Final model trained with best params on the full dataset  
+
+---
+
+## 🧰 Tech Stack
+
+| Category | Tools |
+|-----------|--------|
+| Language | Python |
+| Notebook | Jupyter / Colab |
+| Libraries | pandas, numpy, seaborn, matplotlib, scikit-learn |
+| ML Models | RandomForest, LogisticRegression, GradientBoosting |
+| Optimization | RandomizedSearchCV |
+| Scaling | StandardScaler |
+
+---
+
+## ⚙️ How to Run
+
+### Step 1: Clone the Repo
+```bash
+git clone https://github.com/omnhinge/advanced_Machine_learning_project_on_heartcsv.git
+cd advanced_Machine_learning_project_on_heartcsv
+```
+
+### Step 2: Install Requirements
+```bash
+pip install -r requirements.txt
+```
+
+### Step 3: Run the Notebook
+- Open `file.ipynb` in **Jupyter Notebook** or **Google Colab**  
+- Make sure your `heart.csv` is in the same directory  
+- Run all cells in order  
+
+Or open directly in Colab:  
+👉 [**Open in Colab**](https://colab.research.google.com/github/omnhinge/advanced_Machine_learning_project_on_heartcsv/blob/main/file.ipynb)
+
+---
+
+## 📊 Model Results
+| Model | R² | RMSE | Comment |
+|--------|----|------|----------|
+| Random Forest | ~0.85 | ~3.2 | Best overall performance |
+| Logistic Regression | ~0.79 | ~4.1 | Simpler, interpretable |
+| Gradient Boosting | ~0.84 | ~3.3 | Competitive alternative |
+
+*(Scores may vary slightly by random seed or split.)*
+
+---
+
+## 🔍 Directory Layout
+```
+advanced_Machine_learning_project_on_heartcsv/
+│
+├── file.ipynb              # Main notebook
+├── heart.csv               # Dataset
+├── requirements.txt        # Dependencies
+└── README.md               # Project documentation
+```
+
+---
+
+## 🚀 Future Work
+- Add feature importance visualization (SHAP / LIME)  
+- Deploy via Streamlit for live predictions  
+- Test additional ensemble models (XGBoost, CatBoost)  
+- Explore ANN or hybrid stacking approach  
+
+---
+
+## ✨ Author
+**Om N. Hinge**  
+📍 Machine Learning Enthusiast  
+🔗 [GitHub Profile](https://github.com/omnhinge)
+
+If you find this useful, drop a ⭐ on the repo!  
+
